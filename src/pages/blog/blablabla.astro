@@ -2,14 +2,37 @@
 import '../../styles/global.css';
 import Bloglayout from '../../layouts/bloglayout.astro';
 import PostPreview from '../../components/post-preview.astro';
+import TagCell from '../../components/tag-cell.astro';
 const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+
+const allTags = [...new Set(
+  [...allPosts]
+    .flatMap((post: any) => post.frontmatter.tags ?? [])
+)].sort();
 ---
+
+
+
 <style>
   h1{
             color: darkmagenta
         }
 </style>
+
+
+
 <Bloglayout>
+
+  
+<div class = centerer>
+    <h2>blablablablablabla</h2> 
+  </div>
+   <div class = centerer>
+    {allTags.map((tag: any) => <TagCell tag={tag} />)}
+  </div>
+  <br>
+  <br>
+
   <div>
     
     {allPosts.map((post: any) => <PostPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.description}/>)}

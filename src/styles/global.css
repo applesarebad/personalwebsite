@@ -1,8 +1,10 @@
 html{
     background-color: rgb(255, 241, 254);
+    color: rgb(80, 0, 0);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.content {
+.content, #modal{
     margin: 0 auto;
     width: 100%;
     max-width: 100ch;
@@ -14,7 +16,6 @@ html{
   * {
     box-sizing: border-box;
   }
-  
   
 
 .nav-links {
@@ -56,3 +57,17 @@ img {
   font-style: italic;
 } 
   
+.iconify {
+    font-size: 2rem;
+    color: darkmagenta;
+    }
+.iconify:hover{
+      color: darkred
+    }
+.centerer
+  {
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-self: center;
+  }

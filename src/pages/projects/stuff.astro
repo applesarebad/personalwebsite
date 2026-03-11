@@ -2,7 +2,14 @@
 import '../../styles/global.css';
 import Bloglayout from '../../layouts/bloglayout.astro';
 import WorkPreview from '../../components/work-preview.astro';
+import TagCell from '../../components/tag-cell.astro';
 const allPosts = Object.values(import.meta.glob('./../stuff/*.md', { eager: true }));
+const favPosts = allPosts.filter((post: any) => post.frontmatter.favourite ?? false);
+
+const allTags = [...new Set(
+  [...allPosts]
+    .flatMap((post: any) => post.frontmatter.tags ?? [])
+)].sort();
 ---
 <style>
     h1{
@@ -15,8 +22,42 @@ const allPosts = Object.values(import.meta.glob('./../stuff/*.md', { eager: true
         margin: 2rem 5%;
         grid-auto-flow: row dense;
     }
+    
+
 </style>
 <Bloglayout>
+  <div class="centerer">
+    <h4 class="centerer">Places My Stuff Might be Found</h4>
+  <div class = "centerer">
+    <a href="https://github.com/applesarebad">
+      <span class="iconify" data-icon="mdi:github"></span>
+    </a>
+    <a href="https://www.youtube.com/@waterycheesecake">
+      <span class="iconify" data-icon="mdi:youtube"></span>
+    </a>
+    <a href="https://applesarebad.itch.io/">
+      <span class="iconify" data-icon="simple-icons:itchdotio"></span>
+    </a>
+    <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/">
+      <span class="iconify" data-icon="mdi:linkedin"></span>
+    </a>
+  </div>
+
+
+
+</div>
+  <h2 class = centerer>Favourites</h4>
+  <div class="posts-grid">
+    
+    {favPosts.map((post: any) => <WorkPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.summary}/>)}
+  </div>
+  <div class = centerer>
+    <h2>All Projects</h4> 
+  </div>
+   <div class = centerer>
+    {allTags.map((tag: any) => <TagCell tag={tag} />)}
+  </div>
+
   <div class="posts-grid">
     
     {allPosts.map((post: any) => <WorkPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.summary}/>)}

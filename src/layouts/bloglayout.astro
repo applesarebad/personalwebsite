@@ -1,31 +1,30 @@
 ---
-import '../styles/global.css';
-import Header from '../components/header.astro';
-import Footer from '../components/footer.astro';
-import Body from './empty.astro';
+import "../styles/global.css";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
+import Body from "./empty.astro";
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
+    <meta name="generator" content={Astro.generator} />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <title>blablabla</title>
     <style>
-        
-        p.caption {
-          text-align: center;
-          font-style: italic;
-          color: aqua;
-        } 
+      p.caption {
+        text-align: center;
+        font-style: italic;
+        color: aqua;
+      }
     </style>
   </head>
   <body>
     <Body>
-    <div class = content>
-
-        <slot/>
-    </div>
-  </Body>
+      <div class="content">
+        <slot />
+      </div>
+    </Body>
   </body>
 </html>

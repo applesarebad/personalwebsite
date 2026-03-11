@@ -1,46 +1,251 @@
 ---
-import '../styles/global.css';
-import Header from '../components/header.astro';'../components/navbar.astro'
-import Footer from '../components/footer.astro';'../components/footer.astro'
-import Body from '../layouts/empty.astro';
+import "../styles/global.css";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
+import Body from "../layouts/empty.astro";
+
+const items = [
+  { title: "Games" },
+  { title: "Hobbies" },
+  { title: "Food" },
+  { title: "School" },
+  { title: "Misc" },
+  { title: '"Food"' },
+];
 ---
-
-
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
+    <meta name="generator" content={Astro.generator} />
     <title>AHHHHHHHHHHHH</title>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   </head>
   <style>
-    h1{
-        font-size: 80px;
-        line-height: 0;
+    h1 {
+      font-size: 80px;
+      line-height: 0;
     }
-    h3{
+    h3 {
       font-size: 40px;
       line-height: 1;
     }
+    a {
+      text-decoration: none;
+      color: darkred;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      height: 150px;
+      background-color: rgb(255, 219, 245);
+      box-shadow: 3px 3px 3px rgb(255, 180, 236);
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .card:hover {
+      background-color: #ffe7fb;
+      transform: translateY(-3px);
+      box-shadow: 5px 5px 10px rgba(255, 180, 236, 0.6);
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 10;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgb(255, 241, 254);
+      border-radius: 10px;
+      padding: 2rem;
+      z-index: 20;
+      min-width: 400px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: rgb(119, 0, 91);
+    }
+    .overlay.active,
+    .modal.active {
+      display: block;
+    }
+
   </style>
-  <Body> 
-<div class = content>
-    <h1>HII!!!!!</h1>
-    <h3>
-    I'm Andrew Zhang!!
-    </h3>
-    <p>
-      somethingsomething <br>
-      blablabla <br>
-      ahadjaskjdaskjdhasj <br>
-      <br>
-      <a href = "/blog/blablabla"> Click here to see me say random things</a> <br>
-<br>
-      If you wish to contact me, email me at <a href="mailto:andrewzhang927@gmail.com">andrewzhang927@gmail.com</a>! 
-    </p>
+
+  
+
+  <Body>
+    <div class="content">
+      <div style="display:none">
+    <div id="content-0" >
+      <h4 style="text-align: center">
+        I really like games! <br>
+      </h4>
+      <p>
+        Card games, Board games, but honestly mostly Video games (oops). I think games are great. They make me think in new and interesting ways, are a great way to
+        spend time with others, and in general just make me smile : ) <br>
+      </p>
+      <h4 style="text-align: center">some of my favourite games/franchises :</h4>
+      <p style="text-align: center">
+        Slay the Spire<br>
+        Celeste <br>
+        Polybridge<br>
+        Stephen Sausage Roll <br>
+        Kirby <br>
+        Factorio <br>
+        Ace Attorney <br>
+        Stardew Valley <br>
+        Paper Mario TTYD
+        </p>
+        <h4 style="text-align: center">some fun facts:</h4>
+        <p style="text-align: center">
+        The first game I've "owned" (not my brother's) is Mario Party 9 <br>
+        The first console I've "owned" was the Nintendo Switch. I do have the Switch 2! <br>
+        My first Steam game was Poly Bridge 2 <br>
+        </p>
+        <h4 style="text-align: center">an unfun fact:</h4>
+        <p style="text-align: center">I have some amount over 100k mastery points on Yuumi........... <br> 
+          don't judge me for either of the things that i could be judged for from that fact
+        </p>
+        
+        
+        
+    </div>
+
+    <div id="content-1" >
+      <p>I have some hobbies that are not game involved. I usually don't invest a crazy amount into most of them like going to tournaments or whatnot
+        but its fun to be able to do different things! 
+      </p>
+      <h4 style="text-align: center">art</h4>
+        <p style="text-align: center"> I had an art teacher in highschool, and I learned painting from him. I really liked how hands off he was, so 
+          I feel pretty proud about what I've done. I like almost every painting I've done since I switched from acrylic to oil. He also had a cool summer camp where 
+          I got to paint outside with him. I might share some of it at some point
+        </p>
+        <h4 style="text-align: center">puzzles</h4>
+        <p style="text-align: center"> OK maybe these are games too, but like they are kinda different maybe. My favourite kind are things like sudoku, kakuro, 
+          and the like, so not really jigsaws. I especially like sudoku variants recently. Daily puzzles like the NYT games are fun too, but I struggle with word puzzles
+          quite a bit. Linkedin Queens has been probably my favourite daily puzzle for the past while.
+        </p>
+        <h4 style="text-align: center"> some other smaller ones:</h4>
+        <p style="text-align: center"> 
+          Piano<br>
+          Badminton <br>
+          Juggling! (I can only do 3 balls right now) <br>
+          Collecting Stationary
+
+          <br><br>
+          In highschool I also did robotics on FRC 7476 and that was a great time
+        </p>
+    </div>
+
+    <div id="content-2" >
+      <p></p>
+    </div>
+
+    <div id="content-3" >
+      <p>School stuff...</p>
+    </div>
+
+    <div id="content-4" >
+      <p>Misc...</p>
+    </div>
+
+    <div id="content-5" >
+      <p>🤫</p>
+    </div>
+     </div>
+
+
+      <h1>hi</h1>
+      <h3>Andrew Zhang</h3>
+
+      <div class="centerer">
+        <a href="https://github.com/applesarebad">
+          <span class="iconify" data-icon="mdi:github"></span>
+        </a>
+        <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/">
+          <span class="iconify" data-icon="mdi:linkedin"></span>
+        </a>
+      </div>
+
+      <p>
+        somethingsomething <br />
+        blablabla <br />
+        ahadjaskjdaskjdhasj <br />
+        <br />
+        <a href="/blog/blablabla">Click here to see me say random things</a>
+        <br />
+        <br />
+        If you wish to contact me, email me at <a
+          href="mailto:andrewzhang927@gmail.com">andrewzhang927@gmail.com</a
+        >
+      </p>
+
+      <div class="grid">
+        {
+          items.map((item, i) => (
+            <div class="card" onclick={`openModal(${i})`}>
+              <h2 class = "centerer">{item.title}</h2>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h2 class = centerer id="modal-title"></h2>
+      <div class = content id="modal-body"></div>
     </div>
   </Body>
-  
-  
 </html>
+
+
+
+
+<script define:vars={{ items }}>
+  window.openModal = function (i) {
+    const title = document.getElementById("modal-title");
+    const body = document.getElementById("modal-body");
+    const modal = document.getElementById("modal");
+    const overlay = document.getElementById("overlay");
+
+    title.textContent = items[i].title;
+    body.innerHTML = document.getElementById(`content-${i}`)?.innerHTML ?? "Coming soon...";
+    modal.classList.add("active");
+    overlay.classList.add("active");
+  };
+
+  window.closeModal = function () {
+    document.getElementById("modal")?.classList.remove("active");
+    document.getElementById("overlay")?.classList.remove("active");
+  };
+</script>

@@ -1,6 +1,7 @@
 ---
 const { tag } = Astro.props;
-
+const section = Astro.url.pathname.split("/")[1];
+const destination = (section === "blog" || section === "post") ? "blog" : "projects";
 let colour;
 switch (tag.charAt(0).toLowerCase()) {
   case 'a': case 'b': case 'c': colour = [255, 169, 169]; break;
@@ -13,6 +14,8 @@ switch (tag.charAt(0).toLowerCase()) {
   case 'v': case 'w': case 'x': colour = [227, 255, 169]; break;
   case 'y': case 'z':
   default: colour = [255, 227, 169]; break;
+
+
 }
 
 const [r, g, b] = colour;
@@ -36,7 +39,7 @@ const [r, g, b] = colour;
   }
 </style>
 
-<a href={`/${Astro.url.pathname.split("/")[1]}/${tag}`}>
+<a href={`/${destination}/${tag}`}>
   <div class="cell">
     <span>{tag}</span>
   </div>

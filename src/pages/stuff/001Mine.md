@@ -4,6 +4,7 @@ title: '14 Minesweeper Variants'
 date: 'May 16, 2025'
 summary: 'very good'
 tags: ["games"]
+favourite: true
 ---
 
 ![14 Minesweeper variants](../../images/001Mine/14-Mine-Sweeper.png)

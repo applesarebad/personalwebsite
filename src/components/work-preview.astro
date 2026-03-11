@@ -63,16 +63,13 @@ h4 {
 </style>
 
 <a href={url}>
-  
-  <div class="post">
+  <div class="post" onclick={`location.href='${url}'`}>
     <div class="rowone">
       <h2>{title}</h2>
     </div>
-
     <div class="tags">
-      {tags.map((tag_: any) => <TagCell tag = {tag_} />)}
+      {tags.map((tag_: any) => <TagCell tag={tag_} />)}
     </div>
-
     <h4>{description}</h4>
   </div>
 </a>

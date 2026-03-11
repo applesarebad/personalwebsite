@@ -27,17 +27,16 @@ const { posts } = Astro.props;
   h1{
             color: darkmagenta
     }
-  .centerer
-  {
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-self: center;
+
+  a {
+  text-decoration: none;
+  color: inherit;
   }
 </style>
 <Bloglayout>
   <div class = centerer>
-    Looking for: <TagCell tag = {tag} class = centerer> </TagCell>
+    Looking for: <TagCell tag = {tag} class = centerer> </TagCell> <a href = "/blog/blablabla"> x </a>
+
   </div>
   
   
