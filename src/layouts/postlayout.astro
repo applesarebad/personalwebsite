@@ -1,54 +1,73 @@
 ---
-import '../styles/global.css';
-import Body from './empty.astro';
-import TagCell from '../components/tag-cell.astro';
-const {frontmatter} = Astro.props;
+import "../styles/global.css";
+import Body from "./empty.astro";
+import TagCell from "../components/tag-cell.astro";
+const { frontmatter } = Astro.props;
 ---
-
-
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} >
-    <title>aslfjsdflksdjl;fasdj;flasd</title>
+    <meta name="generator" content={Astro.generator} />
+    <title>Andrew Zhang</title>
+    <link rel="icon" type="image/x-icon" href="/aboutme/profilepic.png">
     <style>
-        h1{
-            font-size: 2.25rem;
-            margin-bottom: 3%;
-            padding: 0;
-        }
-        p{
-            margin: 0;
-            padding: 0;
-        }
-        .tags {
-        flex: 0 1 auto; 
+      h1 {
+        font-size: 2.25rem;
+        margin-bottom: 3%;
+        padding: 0;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+      }
+      .tags {
+        flex: 0 1 auto;
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 0.5rem 0.25rem;
-        width:100%;
-        }
-        
+        width: 100%;
+      }
+      .title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .back-arrow {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: -3rem;
+      }
     </style>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
   </head>
   <body>
     <Body>
-    <div class = content>
-        <h1>{frontmatter.title}</h1>
+      <div class="content">
+        <div class="title-row">
+          <div class="back-arrow" onclick="history.back()">
+            <span class="iconify" data-icon="mdi:arrow-left"></span>
+          </div>
+
+          <h1>{frontmatter.title}</h1>
+        </div>
         <p>{frontmatter.description}</p>
-        <br>
+        <br />
         <p>{frontmatter.date} {frontmatter.lastupdate}</p>
-        <br>
-      <div class = tags>
-        {frontmatter.tags.map((tag_: any) => <TagCell tag = {tag_} />)}
-      </div>
+        <br />
+        <div class="tags">
+          {frontmatter.tags.map((tag_: any) => <TagCell tag={tag_} />)}
+        </div>
         <slot />
-    </div>
-  </Body>
+        <div class = centerer onclick="history.back()">
+            <span class="iconify" data-icon="mdi:arrow-left"></span>
+        </div>
+      </div>
+      
+    </Body>
   </body>
-  
-  
 </html>
