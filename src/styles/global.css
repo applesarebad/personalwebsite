@@ -1,7 +1,7 @@
 html {
   background-color: rgb(255, 241, 254);
   color: rgb(80, 0, 0);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .content,
@@ -12,7 +12,7 @@ html {
   padding: 1rem;
   color: rgb(80, 0, 0);
   line-height: 135%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
