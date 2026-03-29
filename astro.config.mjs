@@ -6,3 +6,4 @@ export default defineConfig({
     site: 'https://applesarebad.github.io',
     base: '/personalwebsite',
 });
+
