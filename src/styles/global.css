@@ -1,73 +1,82 @@
-html{
-    background-color: rgb(255, 241, 254);
-    color: rgb(80, 0, 0);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+html {
+  background-color: rgb(255, 241, 254);
+  color: rgb(80, 0, 0);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.content, #modal{
-    margin: 0 auto;
-    width: 100%;
-    max-width: 100ch;
-    padding: 1rem;
-    color: rgb(80, 0, 0);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
+.content,
+#modal {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100ch;
+  padding: 1rem;
+  color: rgb(80, 0, 0);
+  line-height: 135%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: underline;
+  color: darkred;
+}
 
 .nav-links {
-    width: 100%;
-    display: flex;
-    justify-content: right;
-    gap: 1.5rem;
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    font-size: 1.2rem;
-    text-transform: lowercase;
-    color: rgb(80, 0, 0);
-    padding: 10px 0;
-    transition: transform 0.2s ease, color 0.2s ease;
-  }
-  
-  .nav-links a:hover{
-    transition: transform 0.2s ease, color 0.2s ease;
-    transform: translateY(-5px);
-    text-shadow: 0 2px 5px rgba(255, 142, 230, 0.5); /* subtle glowing shadow */
-  }
-  
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  gap: 1.5rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  text-transform: lowercase;
+  color: rgb(80, 0, 0);
+  padding: 10px 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  transition: transform 0.2s ease, color 0.2s ease;
+  transform: translateY(-5px);
+  text-shadow: 0 2px 5px rgba(255, 142, 230, 0.5);
+  /* subtle glowing shadow */
+}
+
 
 img {
-    max-width: 100%; 
-    max-height: 20em;
-    width: auto;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-    align-self: center;
-    display: block; 
+  max-width: 100%;
+  max-height: 20em;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  align-self: center;
+  display: block;
 }
+
 .caption {
   text-align: center;
   font-style: italic;
-} 
-  
+}
+
 .iconify {
-    font-size: 2rem;
-    color: darkmagenta;
-    }
-.iconify:hover{
-      color: darkred
-    }
-.centerer
-  {
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-self: center;
-  }
+  font-size: 2rem;
+  color: darkmagenta;
+}
+
+.iconify:hover {
+  color: darkred
+}
+
+.centerer {
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-self: center;
+}

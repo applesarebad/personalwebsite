@@ -3,7 +3,7 @@ import '../../styles/global.css';
 import Bloglayout from '../../layouts/bloglayout.astro';
 import WorkPreview from '../../components/work-preview.astro';
 import TagCell from '../../components/tag-cell.astro';
-const allPosts = Object.values(import.meta.glob('./../stuff/*.md', { eager: true }));
+const allPosts = Object.values(import.meta.glob('./../stuff/*.md', { eager: true })).reverse();
 const favPosts = allPosts.filter((post: any) => post.frontmatter.favourite ?? false);
 
 const allTags = [...new Set(

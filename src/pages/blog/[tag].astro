@@ -6,7 +6,7 @@ import TagCell from '../../components/tag-cell.astro';
 
 
 export async function getStaticPaths() {
-  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+  const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true })).reverse();
 
   const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
 

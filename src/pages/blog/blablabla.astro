@@ -3,7 +3,7 @@ import '../../styles/global.css';
 import Bloglayout from '../../layouts/bloglayout.astro';
 import PostPreview from '../../components/post-preview.astro';
 import TagCell from '../../components/tag-cell.astro';
-const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
+const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true })).reverse();
 
 const allTags = [...new Set(
   [...allPosts]
