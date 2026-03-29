@@ -5,7 +5,4 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     site: 'https://applesarebad.github.io',
     base: '/personalwebsite',
-    devToolbar: {
-        enabled: false
-    }
 });
