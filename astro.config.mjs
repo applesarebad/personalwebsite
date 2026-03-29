@@ -3,7 +3,6 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://applesarebad.github.io',
-    base: '/personalwebsite',
+    site: 'https://andrew-zhang.ca'
 });
 
