@@ -1,9 +1,10 @@
 ---
 layout: ../../layouts/postlayout.astro
 title: '4D Tic Tac Toe'
-date: 'March 16, 2026'
+date: 'November 2025'
 description: ''
 tags: ["game making"]
+favourite: true
 ---
 
 In my first class of Linear Algebra, My professor showed us how Tic Tac Toe worked in 3 dimensions, forced us to play a game, then explained how it could 
@@ -36,3 +37,10 @@ Here are some examples. Its hard to wrap your head around at first.
 <p class = "caption">Winning in x, y, and z direction (when z goes right, x and y go left and down)</p>
 
 I challenged myself to complete this project over one weekend and I ended up finishing most of it by the end of sunday, so I'm quite proud I was able to turn an idea into reality so quick! The game was made using Godot, and I've wanted to practice using it during university. 
+
+### 4D old box pushing game except you need to line up the boxes + 4D!!!
+During finals of the same semester, I also decided to try and to make a single player puzzle game using this same idea, where you need to line up some boxes, similar to sokoban
+
+<a href = "https://applesarebad.itch.io/4d-box-game">Check it out here!</a> it might help you understand 4D tic tac toe better.
+
+![alt text](../../images/S002TTT/4dbox.png)

@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/postlayout.astro
 title: 'FRC'
-date: 'March 16, 2026'
+date: '2023-2025'
 description: ''
 tags: ["FRC"]
 favourite: true

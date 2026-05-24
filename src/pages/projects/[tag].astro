@@ -34,11 +34,15 @@ const { posts } = Astro.props;
         margin: 2rem 5%;
         grid-auto-flow: row dense;
     }
+    a {
+  text-decoration: none;
+  color: inherit;
+  }
 
 </style>
 <Bloglayout>
     <div class = centerer>
-    Looking for: <TagCell tag = {tag} class = centerer> </TagCell>
+    Looking for: <TagCell tag = {tag} class = centerer> </TagCell> <a href = "/projects/stuff"> x </a>
   </div>
   <div class="posts-grid">
     
