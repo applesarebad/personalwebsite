@@ -45,7 +45,6 @@ a {
   transition: transform 0.2s ease, color 0.2s ease;
   transform: translateY(-5px);
   text-shadow: 0 2px 5px rgba(255, 142, 230, 0.5);
-  /* subtle glowing shadow */
 }
 
 
