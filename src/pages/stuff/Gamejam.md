@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/postlayout.astro
+layout: ../../layouts/worklayout.astro
 title: 'Game Jams'
 date: '2024-2025'
 description: ''

@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/postlayout.astro
+layout: ../../layouts/worklayout.astro
 title: '4D Tic Tac Toe'
 date: 'November 2025'
 description: ''

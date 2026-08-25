@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/postlayout.astro
+layout: ../../layouts/worklayout.astro
 title: 'Slay the Spire 2 Potion Calculator'
 date: 'May 22 2026'
 description: ''

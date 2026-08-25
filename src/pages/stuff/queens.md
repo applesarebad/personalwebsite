@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/postlayout.astro
+layout: ../../layouts/worklayout.astro
 title: 'Queens Variants'
 date: '2026'
 description: ''
