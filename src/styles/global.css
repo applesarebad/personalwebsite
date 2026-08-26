@@ -1,12 +1,12 @@
 :root {
-  --plum: #2b1730;
-  --plum-soft: #6b3d63;
+  --dark: #2b1730;
+  --dark-soft: #6b3d63;
   --accent: #8f8f8f;
   --accent-strong: rgb(158, 158, 158);
 
-  --blush: #fdf3fa;
-  --blush-deep: #f6dff0;
-  --blush-hover: #ffe9f8;
+  --light: #fdf3fa;
+  --light-deep: #f6dff0;
+  --light-hover: #ffe9f8;
   --shadow: rgba(198, 60, 150, 0.25);
 
   --font-serif: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
@@ -15,15 +15,15 @@
 }
 
 html {
-  background-color: var(--blush);
-  color: var(--plum);
+  background-color: var(--light);
+  color: var(--dark);
   font-family: var(--font-sans);
 }
 
 body {
-  background: var(--blush);
+  background: var(--light);
   font-family: var(--font-sans);
-  color: var(--plum);
+  color: var(--dark);
   margin: 0;
 }
 
@@ -33,7 +33,7 @@ body {
   width: 100%;
   max-width: 100ch;
   padding: 1rem;
-  color: var(--plum);
+  color: var(--dark);
   line-height: 135%;
   font-family: var(--font-sans);
 }
@@ -58,7 +58,7 @@ a {
   text-decoration: none;
   font-size: 1.2rem;
   text-transform: lowercase;
-  color: var(--plum);
+  color: var(--dark);
   padding: 10px 0;
   transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -86,7 +86,7 @@ img {
 
 .iconify {
   font-size: 2rem;
-  color: var(--plum);
+  color: var(--dark);
 }
 
 .iconify:hover {
