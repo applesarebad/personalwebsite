@@ -2,11 +2,6 @@
 import "../styles/global.css";
 import ThemeInit from "../components/theme-init.astro";
 
-const nav = [
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects/stuff" },
-  { label: "Blog", href: "/blog/blablabla" },
-];
 ---
 
 <html lang="en">
@@ -29,14 +24,14 @@ const nav = [
           <h1 class="hero__name">Andrew Zhang</h1>
           <p class="hero__tag">CS and Math at UofT </p>
 
-          <nav class="hero__nav" aria-label="Primary">
-            {nav.map((item) => (
-              <a href={item.href}>{item.label}</a>
-            ))}
-          </nav>
+          <div class="hero__nav" aria-label="Primary">
+            <a href="/blog/blablabla">blog</a>
+    <a href="/projects/stuff">projects</a>
+    <a href="/about">about me</a>
+          </div>
 
           <button class="hero__switch" id="hero-switch" type="button" aria-label="Show a different painting">
-            switch painting
+            switch theme
           </button>
         </div>
       </div>
@@ -117,7 +112,7 @@ const nav = [
 
   .hero__name {
     margin: 0;
-    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-family: var(--font-serif);
     font-weight: 500;
     font-style: italic;
     font-size: clamp(1.9rem, 3.4vw, 3rem);
@@ -127,7 +122,7 @@ const nav = [
 
   .hero__tag {
     margin: 0.9rem 0 1.8rem;
-    font-family: "Courier New", ui-monospace, monospace;
+    font-family: var(--font-sans);
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     color: var(--dark-soft);
   }
@@ -142,29 +137,27 @@ const nav = [
   .hero__nav a {
     color: var(--dark);
     text-decoration: none;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
     font-size: 1.25rem;
     letter-spacing: 0.02em;
     padding-bottom: 0.2rem;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.25s ease;
+    transition: color 0.25s ease;
   }
 
   .hero__nav a:hover,
   .hero__nav a:focus-visible {
-    border-color: var(--accent-strong);
+    color: var(--accent-strong);
   }
 
   .hero__switch {
     margin-top: 2rem;
     background: none;
-    border: 1px solid var(--dark-soft);
     color: var(--dark-soft);
-    font-family: "Courier New", ui-monospace, monospace;
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    border: 0px solid var(--dark-soft);
+    border-radius: 0.25rem;
+    font-size: 1rem;
     letter-spacing: 0.05em;
-    padding: 0.5rem 0.9rem;
-    border-radius: 999px;
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease;
   }

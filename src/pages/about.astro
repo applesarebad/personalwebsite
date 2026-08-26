@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/header.astro";
 import Footer from "../components/footer.astro";
 import Body from "../layouts/empty.astro";
+import ThemeInit from "../components/theme-init.astro";
 
 const items = [
   { title: "Games" },
@@ -19,9 +20,10 @@ const items = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Andrew Zhang</title>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <title>Andrew Zhang</title>
     <link rel="icon" type="image/x-icon" href="/aboutme/profilepic.png">
+    <ThemeInit />
   </head>
   <style>
     h1 {
@@ -45,18 +47,18 @@ const items = [
       overflow: hidden;
       cursor: pointer;
       height: 150px;
-      background-color: rgb(255, 219, 245);
-      box-shadow: 3px 3px 3px rgb(255, 180, 236);
+      background-color: var(--light-deep);
+      box-shadow: 3px 3px 8px var(--shadow);
       transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    
+
     .card:hover {
-      background-color: #ffe7fb;
+      background-color: var(--light-hover);
       transform: translateY(-3px);
-      box-shadow: 5px 5px 10px rgba(255, 180, 236, 0.6);
+      box-shadow: 5px 5px 12px var(--shadow);
     }
     .overlay {
       display: none;
@@ -71,7 +73,7 @@ const items = [
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: rgb(255, 241, 254);
+      background-color: var(--light-deep);
       border-radius: 10px;
       padding: 2rem;
       z-index: 20;
@@ -88,7 +90,7 @@ const items = [
       background: none;
       border: none;
       font-size: 1.5rem;
-      color: rgb(119, 0, 91);
+      color: var(--dark);
     }
     .overlay.active,
     .modal.active {
@@ -100,7 +102,7 @@ const items = [
 
   </style>
 
-  
+
 
   <Body>
     <div class="content">

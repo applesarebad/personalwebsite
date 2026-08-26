@@ -3,7 +3,7 @@ layout: ../../layouts/worklayout.astro
 title: 'FRC'
 date: '2023-2025'
 description: ''
-tags: ["FRC"]
+tags: ["clubs"]
 favourite: true
 ---
 
