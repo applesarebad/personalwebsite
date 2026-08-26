@@ -1,37 +1,40 @@
 ---
 import Navbar from './navbar.astro';
 ---
-<head>
-  <style>
-    :global(body) { margin: 0; }
-    header {
-      width: 100%;
-      background-color: pink;
-      z-index: 1000000000;
-
-      position:fixed;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 100ch;
-      margin: 0 auto;
-      padding: 1rem; 
-      color: black;
-    
-    }
-    .header-spacer {
-        height: 5rem;
-    }
-  </style>
-</head>
+<style>
+  :global(body) { margin: 0; }
+  header {
+    width: 100%;
+    background-color: var(--blush-deep);
+    box-shadow: 0 1px 0 var(--blush-soft);
+    z-index: 100;
+    position: fixed;
+    top: 0;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100ch;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+  }
+  .logo {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--plum);
+  }
+  .header-spacer {
+    height: 5rem;
+  }
+</style>
 
 <header>
   <nav>
-    <p class = content>andrew&nbsp;zhang</p>
+    <p class="logo">andrew&nbsp;zhang</p>
     <Navbar />
   </nav>
 </header>
-<div class = header-spacer></div>
+<div class="header-spacer"></div>

@@ -1,27 +1,36 @@
 ---
 let year = new Date().getFullYear();
 ---
-<head>
-    <style>
-        p {
-            color: #ff6464;
-            font-size: smaller;
-        }
-        footer{
-            text-align: center;
-            
-        }
-    </style>
-</head>
+<style>
+  footer {
+    text-align: center;
+    background: var(--blush-deep);
+    padding: 2rem 1rem 2.5rem;
+    margin-top: 3rem;
+  }
+  p {
+    color: var(--plum-soft);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin: 0.35rem 0;
+  }
+  .icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0.75rem 0;
+  }
+</style>
 <footer>
-    <p>andrewzhang927@gmail.com</p>
-    <div class="centerer"  style="display: flex; justify-content: center; gap: 1rem;">
-        <a href="https://github.com/applesarebad" target="_blank">
-          <span class="iconify" data-icon="mdi:github"></span>
-        </a>
-        <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/" target="_blank">
-          <span class="iconify" data-icon="mdi:linkedin"></span>
-        </a>
-      </div>
-    <p>andrew zhang {year}</p>
+  <p>andrewzhang927@gmail.com</p>
+  <div class="icons">
+    <a href="https://github.com/applesarebad" target="_blank">
+      <span class="iconify" data-icon="mdi:github"></span>
+    </a>
+    <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/" target="_blank">
+      <span class="iconify" data-icon="mdi:linkedin"></span>
+    </a>
+  </div>
+  <p>andrew zhang {year}</p>
 </footer>
+ 

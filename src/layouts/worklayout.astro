@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Body from "./empty.astro";
 import TagCell from "../components/tag-cell.astro";
+import ThemeInit from "../components/theme-init.astro";
 const { frontmatter } = Astro.props;
 ---
 
@@ -12,11 +13,13 @@ const { frontmatter } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>Andrew Zhang</title>
     <link rel="icon" type="image/x-icon" href="/aboutme/profilepic.png">
+    <ThemeInit />
     <style>
       h1 {
         font-size: 2.25rem;
         margin-bottom: 3%;
         padding: 0;
+        color: var(--plum);
       }
       p {
         margin: 0;
@@ -41,6 +44,11 @@ const { frontmatter } = Astro.props;
         display: flex;
         align-items: center;
         margin-left: -3rem;
+        color: var(--plum);
+        transition: color 0.2s ease;
+      }
+      .back-arrow:hover {
+        color: var(--accent);
       }
     </style>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
@@ -63,11 +71,10 @@ const { frontmatter } = Astro.props;
           {frontmatter.tags.map((tag_: any) => <TagCell tag={tag_} />)}
         </div>
         <slot />
-        <div class = centerer onclick="history.back()">
+        <div class="centerer" onclick="history.back()">
             <span class="iconify" data-icon="mdi:arrow-left"></span>
         </div>
       </div>
-      
     </Body>
   </body>
 </html>
