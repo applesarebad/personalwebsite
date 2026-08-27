@@ -1,67 +1,51 @@
 ---
-import '../../styles/global.css';
-import Bloglayout from '../../layouts/bloglayout.astro';
-import TagCell from '../../components/tag-cell.astro';
+import "../../styles/global.css";
 
-// Import posts with eager loading
+import Bloglayout from "../../layouts/bloglayout.astro";
+
+import PostPreview from "../../components/post-preview.astro";
+
+import TagCell from "../../components/tag-cell.astro";
+
 const allPosts = Object.values(
-  import.meta.glob('../posts/*.md', { eager: true })
+  import.meta.glob("../posts/*.md", { eager: true }),
 ).reverse();
 
-const allTags = [...new Set(
-  [...allPosts].flatMap((post: any) => post.frontmatter.tags ?? [])
-)].sort();
+const allTags = [
+  ...new Set([...allPosts].flatMap((post: any) => post.frontmatter.tags ?? [])),
+].sort();
 ---
 
 <style>
   h1 {
     font-size: 4rem;
   }
-  
-  .post-article {
-    margin-bottom: 4rem;
-    padding-bottom: 3rem;
-  }
-
-  .post-article:not(:last-child) {
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  .post-meta {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 1.5rem;
-  }
-
-  .tags-wrapper {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
 </style>
 
 <Bloglayout>
   <div class="centerer">
-    <h1>BLOG</h2> 
+    <h1>blog</h1>
   </div>
-  
+
   <div class="centerer">
     {allTags.map((tag: any) => <TagCell tag={tag} />)}
   </div>
-  
-  <br><br>
 
-  <main class="feed-container">
-    {allPosts.map((post: any) => {
-    const PostContent = post.Content;
+  <br />
 
-    return (
-      <article class="feed-post">
-        <div class="post-body">
-          <PostContent />
-        </div>
-      </article>
-    );
-  })}
-  </main>
+  <br />
+
+  <div>
+    {
+      allPosts.map((post: any) => (
+        <PostPreview
+          url={post.url}
+          title={post.frontmatter.title}
+          date={post.frontmatter.date}
+          tags={post.frontmatter.tags}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
+  </div>
 </Bloglayout>

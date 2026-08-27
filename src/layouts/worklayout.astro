@@ -16,10 +16,9 @@ const { frontmatter } = Astro.props;
     <ThemeInit />
     <style>
       h1 {
-        font-size: 2.25rem;
-        margin-bottom: 3%;
+        font-size: 2.75rem;
+        margin-bottom: 1rem;
         padding: 0;
-        color: var(--dark);
       }
       p {
         margin: 0;
@@ -63,13 +62,13 @@ const { frontmatter } = Astro.props;
 
           <h1>{frontmatter.title}</h1>
         </div>
-        <p>{frontmatter.description}</p>
         <br />
         <p>{frontmatter.date} {frontmatter.lastupdate}</p>
         <br />
         <div class="tags">
           {frontmatter.tags.map((tag_: any) => <TagCell tag={tag_} />)}
         </div>
+        <br>
         <slot />
         <div class="centerer" onclick="history.back()">
             <span class="iconify" data-icon="mdi:arrow-left"></span>

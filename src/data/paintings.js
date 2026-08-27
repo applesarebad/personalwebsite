@@ -18,6 +18,7 @@ export const paintings = [
     vars: {
       dark: "#3a1f33",
       darkSoft: "#7a4a68",
+      darkAlt: "#ff18ff",
       accent: "#d9548f",
       accentStrong: "#ff7bb3",
       light: "#fdf1f6",
@@ -37,6 +38,7 @@ export const paintings = [
     vars: {
       dark: "#33241f",
       darkSoft: "#7a5a4a",
+      darkAlt: "#ff18ff",
       accent: "#e08a4c",
       accentStrong: "#ffab6b",
       light: "#fdf5f0",
@@ -53,6 +55,7 @@ export const paintings = [
     vars: {
       dark: "#1f2b33",
       darkSoft: "#4a637a",
+      darkAlt: "#ff18ff",
       accent: "#4c9be0",
       accentStrong: "#6bc0ff",
       light: "#f0f8fd",
@@ -69,6 +72,7 @@ export const paintings = [
     vars: {
       dark: "#1a1a2e",
       darkSoft: "#4a4a6b",
+      darkAlt: "#ff18ff",
       accent: "#6c5ce7",
       accentStrong: "#9b8cff",
       light: "#f2f1fb",
