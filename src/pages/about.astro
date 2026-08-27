@@ -77,10 +77,10 @@ const items = [
       border-radius: 10px;
       padding: 2rem;
       z-index: 20;
-      min-width: 400px;
-      max-width: 600px;
+      width: min(600px, 90vw); /* Keeps card slightly smaller than screen width */
       max-height: 80vh;
       overflow-y: auto;
+      box-sizing: border-box;
     }
     .modal-close {
       position: absolute;
@@ -100,7 +100,24 @@ const items = [
       border-radius: 50%;
     }
 
-  </style>
+    /* Mobile Media Query */
+    @media (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .card {
+    height: 120px;
+  }
+
+  .modal {
+    width: 95vw !important;
+    min-width: unset !important;
+    padding: 1.5rem 1rem;
+  }
+}
+</style>
 
 
 

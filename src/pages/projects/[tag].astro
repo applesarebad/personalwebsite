@@ -26,16 +26,19 @@ const { posts } = Astro.props;
 <style>
     .posts-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 2rem; 
+        grid-template-columns: 1fr; /* Default: 1 column on mobile */
+        gap: 1.5rem; 
         margin: 2rem 5%;
         grid-auto-flow: row dense;
     }
-    a {
-  text-decoration: none;
-  color: inherit;
-  }
 
+    /* Desktop and tablet screens: 2 columns */
+    @media (min-width: 640px) {
+        .posts-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+    }
 </style>
 <Bloglayout>
     <div class = centerer>

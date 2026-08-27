@@ -92,23 +92,26 @@ import ThemeInit from "../components/theme-init.astro";
     border: 0;
   }
 
-  .hero__panel {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    width: 26%;
-    background: var(--light);
-    display: flex;
-    align-items: center;
-    /* your latest slant — left as-is */
-    clip-path: polygon(0 0, 50% 0, 70% 100%, 0 100%);
-    padding: clamp(1.5rem, 3.5vw, 3rem);
-  }
+.hero__panel {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: min(400px, 35vw); /* Responsive width with a minimum base */
+  min-width: 280px;        /* Prevents content collapse on medium screens */
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  /* Shift polygon points right to give content breathing room */
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+  padding: clamp(1.5rem, 3.5vw, 3rem);
+  box-sizing: border-box;
+}
 
-  .hero__panel-inner {
-    animation: rise 0.1s ease-out both;
-    max-width: 17rem;
-  }
+.hero__panel-inner {
+  animation: rise 0.1s ease-out both;
+  width: 100%;
+  max-width: 17rem;
+}
 
   .hero__name {
     margin: 0;
@@ -184,23 +187,30 @@ import ThemeInit from "../components/theme-init.astro";
     }
   }
 
-  @media (max-width: 800px) {
-    .hero__panel {
-      width: 100%;
-      height: 60%;
-      inset: auto 0 0 0;
-      clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
-      align-items: flex-start;
-      padding-top: 3rem;
-    }
-
-    .hero__panel-inner {
-      max-width: none;
-    }
-
-    .hero__nav {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
+ @media (max-width: 800px) {
+  .hero__panel {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    inset: auto 0 0 0;
+    /* 
+      Top-left stays at 0px from top of panel.
+      Top-right drops by a fixed 60px (or calc(0px + 60px)).
+    */
+    clip-path: polygon(0 0, 100% 60px, 100% 100%, 0 100%);
+    align-items: flex-start;
+    padding: 2.5rem 1.75rem 2rem;
   }
+
+  .hero__panel-inner {
+    max-width: none;
+    width: 100%;
+  }
+
+  .hero__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+}
 </style>
