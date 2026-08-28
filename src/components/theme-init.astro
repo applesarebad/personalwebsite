@@ -10,9 +10,9 @@ import { paintings } from "../data/paintings.js";
   (function () {
     function getMood(date) {
       const h = date.getHours();
-      if (h >= 5 && h < 8) return "dawn";
-      if (h >= 8 && h < 17) return "day";
-      if (h >= 17 && h < 20) return "dusk";
+      if (h >= 4 && h < 10) return "dawn";
+      if (h >= 10 && h < 16) return "day";
+      if (h >= 16 && h < 22) return "dusk";
       return "night";
     }
 
