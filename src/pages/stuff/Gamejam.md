@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/postlayout.astro
+layout: ../../layouts/worklayout.astro
 title: 'Game Jams'
 date: '2024-2025'
 description: ''
@@ -8,7 +8,27 @@ tags: ["game making"]
 
 I used to watch a lot of videos about game design. As I started to get more familiar with coding, I decided I would try to participate in a game jam!
 
-The GMTK game jam was one of the largest ones, and I had seen other videos on previous years' interations, so I decided to join the 2024 GMTK game jam. 
+The GMTK game jam was one of the largest ones, and I had seen other videos on previous years' interations, so I decided to join it!
+
+# 2026 GMTK
+<a href = "https://applesarebad.itch.io/slime-timing" > Find it here</a>
+This year was the first year I had collaborators! You can find the links to them in the credits! 
+
+We all never worked on a game together, so it was a bit of a learning curve. The final game ended up super cool though!
+THe theme of this jam was "countdown", which is super broad in terms of games. Almost all games have some sort of countdown, so thinking of a theme was tough. We eventually settled on the idea of a "reverse tower defense". The way this would tie into the theme is that your units would turn invisible, and you would need to count the steps they would take before you could activate them to explode nearby towers. 
+
+This year was my greatest success yet, placing in the top 700 of 100000 other games!
+
+
+# 2025 GMTK
+<a href = "https://applesarebad.itch.io/rock-paper-scissors-jump">Find it here</a>
+
+The theme of this jam was "Loop"
+I was really lost when I saw this theme. There are so many ways to interpret it. I had recently been strangely obsessed with Rock Paper Scissors, and that feels pretty loop related so I decided to explore that route. I also wanted to try making a platformer, as I had recently been messing around with them in Godot, so I settled on a Rock Paper Scissors platformer where you "loop" through rock paper and scissors forms to use their special abilities, which include a ground pound, a double jump, and a dash respectively. 
+
+I had the full 96 hours this time, so I had a lot more time to polish things, and I even had time to make some small animations.
+
+I My game also placed in the top 25% in most of the categories of the jam! I would have been proud regardless because I really liked the final result, but it felt very validating to see others liked my game too. 
 
 # 2024 GMTK 
 <a href = "https://applesarebad.itch.io/balance ">Find it here</a>
@@ -31,12 +51,3 @@ Here are some screenshots
 I didn't expect anyone to end up seeing my game, but because of how the jam was ran, it actually reached some people. I got some really kind comments and I think those comments were part of my motivation to continue to try making things.
 
 
-# 2025 GMTK
-<a href = "https://applesarebad.itch.io/rock-paper-scissors-jump">Find it here</a>
-
-The theme of this jam was "Loop"
-I was really lost when I saw this theme. There are so many ways to interpret it. I had recently been strangely obsessed with Rock Paper Scissors, and that feels pretty loop related so I decided to explore that route. I also wanted to try making a platformer, as I had recently been messing around with them in Godot, so I settled on a Rock Paper Scissors platformer where you "loop" through rock paper and scissors forms to use their special abilities, which include a ground pound, a double jump, and a dash respectively. 
-
-I had the full 96 hours this time, so I had a lot more time to polish things, and I even had time to make some small animations.
-
-I My game also placed in the top 25% in most of the categories of the jam! I would have been proud regardless because I really liked the final result, but it felt very validating to see others liked my game too. 

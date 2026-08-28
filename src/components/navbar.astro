@@ -1,7 +1,75 @@
----
----
-<div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/blog/blablabla">Blablabla</a>
-    <a href="/projects/stuff">Projects</a>
-  </div>
+<button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menu-toggle">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<div class="nav-links" id="nav-links">
+  <a href="/">home</a>
+  <a href="/blog/blablabla">blog</a>
+  <a href="/projects/stuff">projects</a>
+  <a href="/about">about</a>
+</div>
+
+<style>
+
+  /* Hamburger icon (hidden on desktop) */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+  }
+
+  .menu-toggle .bar {
+    height: 2px;
+    width: 100%;
+    background-color: var(--dark);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* Mobile overlay styling */
+  @media (max-width: 640px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: var(--light-deep);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      z-index: 100;
+    }
+
+    .nav-links.is-open {
+      display: flex;
+    }
+
+    /* Minimal "X" toggle transform */
+    .menu-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.is-open .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const links = document.getElementById('nav-links');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = links?.classList.toggle('is-open');
+    toggle.classList.toggle('is-open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>
