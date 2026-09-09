@@ -1,75 +1,103 @@
 ---
-// Renders nothing visible — just a blocking inline script that picks a
-// painting/palette and applies it as CSS variables on <html> before first
-// paint. Import and render this as the FIRST thing in <head> on every
-// top-level page (index.astro, bloglayout.astro, postlayout.astro / empty.astro)
-// so the theme is consistent site-wide and there's no flash of the wrong colors.
+import { getImage } from "astro:assets";
 import { paintings } from "../data/paintings.js";
+
+const resolved = await Promise.all(
+  paintings.map(async ({ image, ...painting }) => {
+    const optimised = await getImage({
+      src: image,
+      width: 2400,
+      format: "webp",
+      quality: 72,
+    });
+    return { ...painting, src: optimised.src };
+  })
+);
 ---
-<script define:vars={{ paintings }}>
+
+<script define:vars={{ paintings: resolved }}>
   (function () {
+    const EXPLICIT_KEY = "themeChoice"; // localStorage: a manual pick, sticky across visits
+    const SESSION_KEY = "themeChoice"; // sessionStorage: this browsing session's roll
+
     function getMood(date) {
-      const h = date.getHours();
-      if (h >= 4 && h < 10) return "dawn";
-      if (h >= 10 && h < 16) return "day";
-      if (h >= 16 && h < 22) return "dusk";
+      const hour = date.getHours();
+      if (hour >= 4 && hour < 10) return "dawn";
+      if (hour >= 10 && hour < 16) return "day";
+      if (hour >= 16 && hour < 22) return "dusk";
       return "night";
     }
 
     function toCssVarName(key) {
       return "--" + key.replace(/([A-Z])/g, "-$1").toLowerCase();
     }
- 
-    function applyTheme(p) {
+
+    function byId(id) {
+      return id ? paintings.find((p) => p.id === id) : undefined;
+    }
+
+    function read(storage, key) {
+      try {
+        return storage.getItem(key);
+      } catch {
+        return null;
+      }
+    }
+
+    function write(storage, key, value) {
+      try {
+        storage.setItem(key, value);
+      } catch {}
+    }
+
+    function remove(storage, key) {
+      try {
+        storage.removeItem(key);
+      } catch {}
+    }
+
+    function applyTheme(painting) {
       const root = document.documentElement;
-      Object.entries(p.vars).forEach(([key, value]) => {
+      Object.entries(painting.vars).forEach(([key, value]) => {
         root.style.setProperty(toCssVarName(key), value);
       });
-      root.dataset.paintingId = p.id;
-      window.__activePainting = p;
-      window.dispatchEvent(new CustomEvent("theme-applied", { detail: p }));
+      root.style.setProperty("--hero-image", `url("${painting.src}")`);
+      root.dataset.paintingId = painting.id;
+      window.__activePainting = painting;
+      window.dispatchEvent(
+        new CustomEvent("theme-applied", { detail: painting })
+      );
     }
- 
+
     function pick() {
-      
- 
-      const isHome = window.location.pathname === "/" || window.location.pathname === "/index.html";
- 
-      // Everywhere except home: reuse this session's pick so navigating
-      // between pages doesn't change the theme mid-browse.
+      const isHome =
+        window.location.pathname === "/" ||
+        window.location.pathname === "/index.html";
+
       if (!isHome) {
-        // A manual switch always wins, on any page.
-      const explicitId = localStorage.getItem("themeChoice");
-      if (explicitId) {
-        const found = paintings.find((p) => p.id === explicitId);
-        if (found) return found;
+        const explicit = byId(read(localStorage, EXPLICIT_KEY));
+        if (explicit) return explicit;
+
+        const session = byId(read(sessionStorage, SESSION_KEY));
+        if (session) return session;
       }
-        const sessionId = sessionStorage.getItem("themeChoice");
-        if (sessionId) {
-          const found = paintings.find((p) => p.id === sessionId);
-          if (found) return found;
-        }
-      }
- 
-      // Home always re-rolls a fresh mood-based pick, and updates the
-      // session value so whatever page you click into next matches it.
+
       const mood = getMood(new Date());
       const matches = paintings.filter((p) => p.mood === mood);
       const pool = matches.length ? matches : paintings;
       const chosen = pool[Math.floor(Math.random() * pool.length)];
-      sessionStorage.setItem("themeChoice", chosen.id);
+      remove(localStorage, EXPLICIT_KEY);
+      write(sessionStorage, SESSION_KEY, chosen.id);
       return chosen;
     }
- 
+
     applyTheme(pick());
- 
-    // Cycles to the next painting and makes it "sticky" (persists across
-    // visits via localStorage) until cycled again.
+
     window.__cycleTheme = function () {
       const currentId = document.documentElement.dataset.paintingId;
-      const idx = paintings.findIndex((p) => p.id === currentId);
-      const next = paintings[(idx + 1) % paintings.length];
-      localStorage.setItem("themeChoice", next.id);
+      const index = paintings.findIndex((p) => p.id === currentId);
+      const next = paintings[(index + 1) % paintings.length];
+      write(localStorage, EXPLICIT_KEY, next.id);
       applyTheme(next);
       return next;
     };

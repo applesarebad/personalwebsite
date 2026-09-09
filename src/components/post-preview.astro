@@ -1,26 +1,47 @@
 ---
-const {title, url, date, tags, description} = Astro.props;
 import TagCell from "./tag-cell.astro";
+
+interface Props {
+  title: string;
+  url: string;
+  date?: string;
+  tags?: string[];
+  description?: string;
+}
+
+const { title, url, date, tags = [], description } = Astro.props;
 ---
 
+<a class="post-link" href={url}>
+  <article class="surface post" onclick={`location.href='${url}'`}>
+    <div class="rowone">
+      <h2>{title}</h2>
+      <h4>{date}</h4>
+    </div>
+    {description && <p>{description}</p>}
+    {
+      tags.length > 0 && (
+        <div class="tags">
+          {tags.map((tag) => (
+            <TagCell tag={tag} base="/blog" />
+          ))}
+        </div>
+      )
+    }
+  </article>
+</a>
+
 <style>
-  a {
+  .post-link {
     text-decoration: none;
     display: block;
   }
+
   .post {
-    background-color: var(--light-deep);
-    border-radius: 10px;
-    box-shadow: 3px 3px 8px var(--shadow);
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     padding: 1.1rem 1.25rem;
     margin-bottom: 1.25rem;
   }
-  .post:hover {
-    background-color: var(--light-hover);
-    transform: translateY(-3px);
-    box-shadow: 5px 5px 12px var(--shadow);
-  }
+
   .rowone {
     display: flex;
     width: 100%;
@@ -28,13 +49,15 @@ import TagCell from "./tag-cell.astro";
     align-items: center;
     gap: 1rem;
   }
+
   h2 {
     font-family: var(--font-sans);
-    font-style: italic;
     font-size: 1.4rem;
     margin: 0;
     color: var(--dark);
+    word-break: break-word;
   }
+
   h4 {
     font-family: var(--font-sans);
     font-size: 0.85rem;
@@ -43,12 +66,14 @@ import TagCell from "./tag-cell.astro";
     color: var(--dark-soft);
     white-space: nowrap;
   }
+
   p {
     margin: 0.5rem 0 0;
     color: var(--dark-soft);
     word-break: break-word;
     max-width: 100%;
   }
+
   .tags {
     display: flex;
     flex-wrap: wrap;
@@ -56,16 +81,3 @@ import TagCell from "./tag-cell.astro";
     margin-top: 0.75rem;
   }
 </style>
-
-<a href={url}>
-  <div class="post" onclick={`location.href='${url}'`}>
-    <div class="rowone">
-      <h2>{title}</h2>
-      <h4>{date}</h4>
-    </div>
-    {description && <p>{description}</p>}
-    <div class="tags">
-      {tags.map((tag_: any) => <TagCell tag={tag_} />)}
-    </div>
-  </div>
-</a>

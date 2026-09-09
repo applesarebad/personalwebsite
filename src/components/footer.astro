@@ -1,6 +1,39 @@
 ---
-let year = new Date().getFullYear();
+const year = new Date().getFullYear();
+
+const socials = [
+  {
+    href: "https://github.com/applesarebad",
+    icon: "mdi:github",
+    label: "GitHub",
+  },
+  {
+    href: "https://www.linkedin.com/in/andrew-zhang-b25783357/",
+    icon: "mdi:linkedin",
+    label: "LinkedIn",
+  },
+];
 ---
+
+<footer>
+  <p>andrewzhang927@gmail.com</p>
+  <div class="icons">
+    {
+      socials.map((social) => (
+        <a
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.label}
+        >
+          <span class="iconify" data-icon={social.icon} />
+        </a>
+      ))
+    }
+  </div>
+  <p>andrew zhang {year}</p>
+</footer>
+
 <style>
   footer {
     text-align: center;
@@ -8,11 +41,13 @@ let year = new Date().getFullYear();
     padding: 2rem 1rem 2.5rem;
     margin-top: 3rem;
   }
+
   p {
     color: var(--dark-soft);
     font-size: 0.85rem;
     margin: 0.35rem 0;
   }
+
   .icons {
     display: flex;
     justify-content: center;
@@ -20,16 +55,3 @@ let year = new Date().getFullYear();
     margin: 0.75rem 0;
   }
 </style>
-<footer>
-  <p>andrewzhang927@gmail.com</p>
-  <div class="icons">
-    <a href="https://github.com/applesarebad" target="_blank">
-      <span class="iconify" data-icon="mdi:github"></span>
-    </a>
-    <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/" target="_blank">
-      <span class="iconify" data-icon="mdi:linkedin"></span>
-    </a>
-  </div>
-  <p>andrew zhang {year}</p>
-</footer>
- 

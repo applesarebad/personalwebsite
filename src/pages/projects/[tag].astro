@@ -1,55 +1,47 @@
 ---
-import '../../styles/global.css';
-import Bloglayout from '../../layouts/bloglayout.astro';
-import WorkPreview from '../../components/work-preview.astro';
-import TagCell from '../../components/tag-cell.astro';
+import Bloglayout from "../../layouts/bloglayout.astro";
+import WorkPreview from "../../components/work-preview.astro";
+import TagCell from "../../components/tag-cell.astro";
+import { loadPosts, tagRoutes, type Post } from "../../lib/posts";
 
+export function getStaticPaths() {
+  return tagRoutes(loadPosts(import.meta.glob("../stuff/*.md", { eager: true })));
+}
 
-export async function getStaticPaths() {
-  const allPosts = Object.values(import.meta.glob('../stuff/*.md', { eager: true })).reverse();
-
-  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
-
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+interface Props {
+  posts: Post[];
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-
 ---
-<style>
-    .posts-grid {
-        display: grid;
-        grid-template-columns: 1fr; /* Default: 1 column on mobile */
-        gap: 1.5rem; 
-        margin: 2rem 5%;
-        grid-auto-flow: row dense;
-    }
 
-    /* Desktop and tablet screens: 2 columns */
-    @media (min-width: 640px) {
-        .posts-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-    }
-</style>
-<Bloglayout>
-    <div class = centerer>
-    Looking for: <TagCell tag = {tag} class = centerer> </TagCell> <a href = "/projects/stuff"> x </a>
+<Bloglayout
+  title={`${tag} | Andrew Zhang`}
+  description={`Projects tagged ${tag}.`}
+>
+  <div class="centerer tag-row">
+    Looking for: <TagCell tag={tag!} base="/projects" />
+    <a href="/projects/stuff" aria-label="Clear tag filter">x</a>
   </div>
+
   <div class="posts-grid">
-    
-    {posts.map((post: any) => <WorkPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.summary}/>)}
+    {
+      posts.map((post) => (
+        <WorkPreview
+          url={post.url}
+          title={post.frontmatter.title}
+          tags={post.frontmatter.tags}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
   </div>
-  
 </Bloglayout>
 
-        
-  
+<style>
+  .tag-row a {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>

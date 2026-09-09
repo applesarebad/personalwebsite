@@ -1,67 +1,65 @@
 ---
-// WorkPreview.astro
-const { title, url, tags, description } = Astro.props;
 import TagCell from "./tag-cell.astro";
+
+interface Props {
+  title: string;
+  url: string;
+  tags?: string[];
+  description?: string;
+}
+
+const { title, url, tags = [], description } = Astro.props;
 ---
- 
+
+<a class="post-link" href={url}>
+  <article class="surface post" onclick={`location.href='${url}'`}>
+    <h2>{title}</h2>
+    {
+      tags.length > 0 && (
+        <div class="tags">
+          {tags.map((tag) => (
+            <TagCell tag={tag} base="/projects" />
+          ))}
+        </div>
+      )
+    }
+    {description && <p class="description">{description}</p>}
+  </article>
+</a>
+
 <style>
-  a {
+  .post-link {
     text-decoration: none;
     display: contents;
   }
+
   .post {
-    background-color: var(--light-deep);
-    border-radius: 10px;
-    box-shadow: 3px 3px 8px var(--shadow);
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 1.25rem;
-    box-sizing: border-box;
     min-height: 140px;
   }
-  .post:hover {
-    background-color: var(--light-hover);
-    transform: translateY(-3px);
-    box-shadow: 5px 5px 12px var(--shadow);
-  }
-  .rowone {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-  }
+
   h2 {
     font-family: var(--font-sans);
-    font-style: italic;
     font-size: 1.3rem;
     margin: 0;
     color: var(--dark);
+    word-break: break-word;
   }
-  h4 {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    margin: 0.5rem 0 0 0;
-    color: var(--dark-soft);
-    font-weight: normal;
-  }
+
   .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.75rem;
   }
-</style>
 
-<a href={url}>
-  <div class="post" onclick={`location.href='${url}'`}>
-    <div class="rowone">
-      <h2>{title}</h2>
-    </div>
-    <div class="tags">
-      {tags.map((tag_: any) => <TagCell tag={tag_} />)}
-    </div>
-    <h4>{description}</h4>
-  </div>
-</a>
+  .description {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    margin: 0.5rem 0 0 0;
+    color: var(--dark-soft);
+  }
+</style>

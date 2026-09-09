@@ -1,71 +1,98 @@
 ---
-import '../../styles/global.css';
-import Bloglayout from '../../layouts/bloglayout.astro';
-import WorkPreview from '../../components/work-preview.astro';
-import TagCell from '../../components/tag-cell.astro';
-const allPosts = Object.values(import.meta.glob('./../stuff/*.md', { eager: true })).reverse();
-const favPosts = allPosts.filter((post: any) => post.frontmatter.favourite ?? false);
+import Bloglayout from "../../layouts/bloglayout.astro";
+import WorkPreview from "../../components/work-preview.astro";
+import TagCell from "../../components/tag-cell.astro";
+import { loadPosts, collectTags } from "../../lib/posts";
 
-const allTags = [...new Set(
-  [...allPosts]
-    .flatMap((post: any) => post.frontmatter.tags ?? [])
-)].sort();
+const posts = loadPosts(import.meta.glob("../stuff/*.md", { eager: true }));
+const favourites = posts.filter((post) => post.frontmatter.favourite);
+const tags = collectTags(posts);
+
+const socials = [
+  {
+    href: "https://github.com/applesarebad",
+    icon: "mdi:github",
+    label: "GitHub",
+  },
+  {
+    href: "https://www.youtube.com/@waterycheesecake",
+    icon: "mdi:youtube",
+    label: "YouTube",
+  },
+  {
+    href: "https://applesarebad.itch.io/",
+    icon: "simple-icons:itchdotio",
+    label: "itch.io",
+  },
+  {
+    href: "https://www.linkedin.com/in/andrew-zhang-b25783357/",
+    icon: "mdi:linkedin",
+    label: "LinkedIn",
+  },
+];
 ---
-<style>
-    .posts-grid {
-        display: grid;
-        grid-template-columns: 1fr; /* Default: 1 column on mobile */
-        gap: 1.5rem; 
-        margin: 2rem 5%;
-        grid-auto-flow: row dense;
-    }
 
-    /* Desktop and tablet screens: 2 columns */
-    @media (min-width: 640px) {
-        .posts-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
+<Bloglayout
+  title="projects | Andrew Zhang"
+  description="Games, websites and other things Andrew Zhang has built."
+>
+  <h3 class="centerer">Places My Stuff Might be Found</h3>
+
+  <div class="centerer socials">
+    {
+      socials.map((social) => (
+        <a
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.label}
+        >
+          <span class="iconify" data-icon={social.icon} />
+        </a>
+      ))
     }
-</style>
-<Bloglayout>
-  <div class="centerer">
-    <h3 class="centerer">Places My Stuff Might be Found</h3>
-  <div class = "centerer">
-    <a href="https://github.com/applesarebad" target="_blank">
-      <span class="iconify" data-icon="mdi:github"></span>
-    </a>
-    <a href="https://www.youtube.com/@waterycheesecake" target="_blank">
-      <span class="iconify" data-icon="mdi:youtube"></span>
-    </a>
-    <a href="https://applesarebad.itch.io/" target="_blank">
-      <span class="iconify" data-icon="simple-icons:itchdotio" ></span>
-    </a>
-    <a href="https://www.linkedin.com/in/andrew-zhang-b25783357/" target="_blank">
-      <span class="iconify" data-icon="mdi:linkedin"></span>
-    </a>
   </div>
 
-
-
-</div>
-  <h1 class = centerer>Favourites</h4>
+  <h1 class="centerer">Favourites</h1>
   <div class="posts-grid">
-    
-    {favPosts.map((post: any) => <WorkPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.summary}/>)}
+    {
+      favourites.map((post) => (
+        <WorkPreview
+          url={post.url}
+          title={post.frontmatter.title}
+          tags={post.frontmatter.tags}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
   </div>
-  <div class = centerer>
-    <h1>All Projects</h4> 
-  </div>
-   <div class = centerer>
-    {allTags.map((tag: any) => <TagCell tag={tag} />)}
+
+  <h1 class="centerer">All Projects</h1>
+  <div class="centerer tag-row">
+    {tags.map((tag) => <TagCell tag={tag} base="/projects" />)}
   </div>
 
   <div class="posts-grid">
-    
-    {allPosts.map((post: any) => <WorkPreview url = {post.url} title = {post.frontmatter.title} date = {post.frontmatter.date} tags = {post.frontmatter.tags} description = {post.frontmatter.summary}/>)}
+    {
+      posts.map((post) => (
+        <WorkPreview
+          url={post.url}
+          title={post.frontmatter.title}
+          tags={post.frontmatter.tags}
+          description={post.frontmatter.description}
+        />
+      ))
+    }
   </div>
-  
 </Bloglayout>
 
-        
+<style>
+  .socials {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .tag-row {
+    margin-bottom: 1rem;
+  }
+</style>

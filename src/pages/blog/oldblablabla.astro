@@ -1,5 +1,4 @@
 ---
-import '../../styles/global.css';
 import Bloglayout from '../../layouts/bloglayout.astro';
 import TagCell from '../../components/tag-cell.astro';
 
@@ -17,7 +16,7 @@ const allTags = [...new Set(
   h1 {
     font-size: 4rem;
   }
-  
+
   .post-article {
     margin-bottom: 4rem;
     padding-bottom: 3rem;
@@ -42,13 +41,13 @@ const allTags = [...new Set(
 
 <Bloglayout>
   <div class="centerer">
-    <h1>BLOG</h2> 
+    <h1>BLOG</h1> 
   </div>
-  
+
   <div class="centerer">
     {allTags.map((tag: any) => <TagCell tag={tag} />)}
   </div>
-  
+
   <br><br>
 
   <main class="feed-container">

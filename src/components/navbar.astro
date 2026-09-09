@@ -1,18 +1,41 @@
-<button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menu-toggle">
+---
+const links = [
+  { href: "/", label: "home" },
+  { href: "/blog/blablabla", label: "blog" },
+  { href: "/projects/stuff", label: "projects" },
+  { href: "/about", label: "about" },
+];
+
+const current = Astro.url.pathname;
+---
+
+<button
+  class="menu-toggle"
+  id="menu-toggle"
+  type="button"
+  aria-label="Toggle navigation"
+  aria-expanded="false"
+  aria-controls="nav-links"
+>
   <span class="bar"></span>
   <span class="bar"></span>
   <span class="bar"></span>
 </button>
 
-<div class="nav-links" id="nav-links">
-  <a href="/">home</a>
-  <a href="/blog/blablabla">blog</a>
-  <a href="/projects/stuff">projects</a>
-  <a href="/about">about</a>
-</div>
+<nav class="nav-links" id="nav-links" aria-label="Main">
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        aria-current={current === link.href ? "page" : undefined}
+      >
+        {link.label}
+      </a>
+    ))
+  }
+</nav>
 
 <style>
-
   /* Hamburger icon (hidden on desktop) */
   .menu-toggle {
     display: none;
@@ -57,19 +80,42 @@
     }
 
     /* Minimal "X" toggle transform */
-    .menu-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .menu-toggle.is-open .bar:nth-child(2) { opacity: 0; }
-    .menu-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .menu-toggle.is-open .bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle.is-open .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.is-open .bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-toggle .bar {
+      transition: none;
+    }
   }
 </style>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const links = document.getElementById('nav-links');
+  const toggle = document.getElementById("menu-toggle");
+  const links = document.getElementById("nav-links");
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = links?.classList.toggle('is-open');
-    toggle.classList.toggle('is-open', isOpen);
-    toggle.setAttribute('aria-expanded', String(isOpen));
+  function setOpen(open: boolean) {
+    links?.classList.toggle("is-open", open);
+    toggle?.classList.toggle("is-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+  }
+
+  toggle?.addEventListener("click", () => {
+    setOpen(!links?.classList.contains("is-open"));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && links?.classList.contains("is-open")) {
+      setOpen(false);
+      toggle?.focus();
+    }
   });
 </script>
