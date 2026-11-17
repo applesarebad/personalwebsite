@@ -1,51 +1,39 @@
 ---
-import "../../styles/global.css";
-
 import Bloglayout from "../../layouts/bloglayout.astro";
-
 import PostPreview from "../../components/post-preview.astro";
-
 import TagCell from "../../components/tag-cell.astro";
+import { loadPosts, collectTags } from "../../lib/posts";
 
-const allPosts = Object.values(
-  import.meta.glob("../posts/*.md", { eager: true }),
-).reverse();
-
-const allTags = [
-  ...new Set([...allPosts].flatMap((post: any) => post.frontmatter.tags ?? [])),
-].sort();
+const posts = loadPosts(import.meta.glob("../posts/*.md", { eager: true }));
+const tags = collectTags(posts);
 ---
+
+<Bloglayout title="blog | Andrew Zhang" description="Andrew Zhang's blog posts.">
+  <h1 class="centerer">blog</h1>
+
+  <div class="centerer tag-row">
+    {tags.map((tag) => <TagCell tag={tag} base="/blog" />)}
+  </div>
+
+  {
+    posts.map((post) => (
+      <PostPreview
+        url={post.url}
+        title={post.frontmatter.title}
+        date={post.frontmatter.date}
+        tags={post.frontmatter.tags}
+        description={post.frontmatter.description}
+      />
+    ))
+  }
+</Bloglayout>
 
 <style>
   h1 {
     font-size: 4rem;
   }
+
+  .tag-row {
+    margin-bottom: 2.5rem;
+  }
 </style>
-
-<Bloglayout>
-  <div class="centerer">
-    <h1>blog</h1>
-  </div>
-
-  <div class="centerer">
-    {allTags.map((tag: any) => <TagCell tag={tag} />)}
-  </div>
-
-  <br />
-
-  <br />
-
-  <div>
-    {
-      allPosts.map((post: any) => (
-        <PostPreview
-          url={post.url}
-          title={post.frontmatter.title}
-          date={post.frontmatter.date}
-          tags={post.frontmatter.tags}
-          description={post.frontmatter.description}
-        />
-      ))
-    }
-  </div>
-</Bloglayout>

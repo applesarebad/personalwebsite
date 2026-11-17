@@ -8,11 +8,16 @@
 //   lightDeep   - light, stepped slightly darker (cards, header/footer bands)
 //   lightHover  - light, stepped slightly lighter (card hover state)
 //   shadow      - accent as an rgba() with low opacity (card shadows)
- 
+
+import mountainpainting from "../images/paintings/mountainpainting.jpg";
+import night from "../images/paintings/night.jpg";
+import sunset from "../images/paintings/sunset.jpg";
+import sunsetwaterspainting from "../images/paintings/sunsetwaterspainting.jpg";
+
 export const paintings = [
   {
     id: "sunset",
-    src: "/aboutme/sunset.jpg",
+    image: sunset,
     alt: "Sunset",
     mood: "dawn",
     vars: {
@@ -27,12 +32,12 @@ export const paintings = [
       shadow: "rgba(217, 84, 143, 0.25)",
     },
   },
- 
+
   // TODO: replace src + vars below with your actual paintings.
   // These are placeholders so the system runs end-to-end right now.
   {
     id: "placeholder-day",
-    src: "/aboutme/mountainpainting.jpg",
+    image: mountainpainting,
     alt: "TODO: describe this painting",
     mood: "day",
     vars: {
@@ -48,8 +53,8 @@ export const paintings = [
     },
   },
   {
-    id: "placeholder-dawn",
-    src: "/aboutme/sunsetwaterspainting.jpg",
+    id: "placeholder-dusk",
+    image: sunsetwaterspainting,
     alt: "TODO: describe this painting",
     mood: "dusk",
     vars: {
@@ -64,10 +69,10 @@ export const paintings = [
       shadow: "rgba(224, 138, 76, 0.25)",
     },
   },
-  
+
   {
     id: "placeholder-night",
-    src: "/aboutme/night.jpg",
+    image: night,
     alt: "TODO: describe this painting",
     mood: "night",
     vars: {

@@ -1,79 +1,124 @@
 ---
-import "../styles/global.css";
-import Body from "./empty.astro";
+import Base from "./base.astro";
 import TagCell from "../components/tag-cell.astro";
-import ThemeInit from "../components/theme-init.astro";
-const { frontmatter } = Astro.props;
+import type { PostFrontmatter } from "../lib/posts";
+
+interface Props {
+  frontmatter: PostFrontmatter;
+
+  url?: string;
+}
+
+const { frontmatter, url } = Astro.props;
+
+const ownPath = url ?? Astro.url.pathname;
+const isBlogPost = ownPath.startsWith("/posts");
+const indexUrl = isBlogPost ? "/blog/blablabla" : "/projects/stuff";
+const tagBase = isBlogPost ? "/blog" : "/projects";
+
+const tags = frontmatter.tags ?? [];
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Andrew Zhang</title>
-    <link rel="icon" type="image/x-icon" href="/aboutme/profilepic.png">
-    <ThemeInit />
-    <style>
-      h1 {
-        font-size: 2.75rem;
-        margin-bottom: 1rem;
-        padding: 0;
-      }
-      p {
-        margin: 0;
-        padding: 0;
-      }
-      .tags {
-        flex: 0 1 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 0.5rem 0.25rem;
-        width: 100%;
-      }
-      .title-row {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
+<Base
+  title={`${frontmatter.title} | Andrew Zhang`}
+  description={frontmatter.description}
+>
+  <article class="content">
+    <div class="title-row">
+      <a class="back-arrow" href={indexUrl} aria-label="Back" data-back>
+        <span class="iconify" data-icon="mdi:arrow-left"></span>
+      </a>
+      <h1>{frontmatter.title}</h1>
+    </div>
 
-      .back-arrow {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin-left: -3rem;
-        color: var(--dark);
-        transition: color 0.2s ease;
-      }
-      .back-arrow:hover {
-        color: var(--accent);
-      }
-    </style>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-  </head>
-  <body>
-    <Body>
-      <div class="content">
-        <div class="title-row">
-          <div class="back-arrow" onclick="history.back()">
-            <span class="iconify" data-icon="mdi:arrow-left"></span>
-          </div>
+    {frontmatter.description && <p class="lede">{frontmatter.description}</p>}
 
-          <h1>{frontmatter.title}</h1>
-        </div>
-        <br />
-        <p>{frontmatter.date} {frontmatter.lastupdate}</p>
-        <br />
+    <p class="dates">
+      <time>{frontmatter.date} {frontmatter.lastupdate}</time>
+    </p>
+
+    {
+      tags.length > 0 && (
         <div class="tags">
-          {frontmatter.tags.map((tag_: any) => <TagCell tag={tag_} />)}
+          {tags.map((tag) => (
+            <TagCell tag={tag} base={tagBase} />
+          ))}
         </div>
-        <br>
-        <slot />
-        <div class="centerer" onclick="history.back()">
-            <span class="iconify" data-icon="mdi:arrow-left"></span>
-        </div>
-      </div>
-    </Body>
-  </body>
-</html>
+      )
+    }
+
+    <slot />
+
+    <p class="centerer">
+      <a class="back-arrow" href={indexUrl} aria-label="Back" data-back>
+        <span class="iconify" data-icon="mdi:arrow-left"></span>
+      </a>
+    </p>
+  </article>
+</Base>
+
+<style>
+  h1 {
+    font-size: 2.75rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .back-arrow {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--dark);
+    transition: color 0.2s ease;
+  }
+
+  .back-arrow:hover {
+    color: var(--accent);
+  }
+
+  .title-row .back-arrow {
+    margin-left: -3rem;
+  }
+
+  @media (max-width: 60rem) {
+    .title-row .back-arrow {
+      margin-left: 0;
+    }
+  }
+
+  .lede,
+  .dates {
+    margin: 0 0 1rem;
+    padding: 0;
+    color: var(--dark-soft);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem 0.25rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+</style>
+
+<script>
+  document
+    .querySelectorAll<HTMLAnchorElement>("a[data-back]")
+    .forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (document.referrer && history.length > 1) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+    });
+</script>

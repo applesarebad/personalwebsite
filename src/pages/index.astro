@@ -1,66 +1,74 @@
 ---
-import "../styles/global.css";
-import ThemeInit from "../components/theme-init.astro";
-
+import Base from "../layouts/base.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Andrew Zhang</title>
-    <link rel="icon" type="image/x-icon" href="/aboutme/profilepic.png" />
-    <ThemeInit />
-  </head>
-  <body>
-    <main class="hero">
-      <div class="hero__image" id="hero-image">
-        <img class="sr-only" id="hero-image-img" src="" alt="" />
+<Base
+  bare
+  title="Andrew Zhang"
+  description="Andrew Zhang — CS and Math at UofT. Writing, projects and paintings."
+>
+  <main class="hero">
+
+    <div
+      class="hero__image"
+      id="hero-image"
+      role="img"
+      aria-label="A painting by Andrew Zhang"
+    >
+    </div>
+
+    <div class="hero__panel">
+      <div class="hero__panel-inner">
+        <h1 class="hero__name">Andrew Zhang</h1>
+        <p class="hero__tag">CS and Math at UofT</p>
+
+        <nav class="hero__nav" aria-label="Main">
+          <a href="/blog/blablabla">blog</a>
+          <a href="/projects/stuff">projects</a>
+          <a href="/about">about</a>
+        </nav>
+
+        <button
+          class="hero__switch"
+          id="hero-switch"
+          type="button"
+          aria-label="Show a different painting"
+        >
+          switch theme
+        </button>
       </div>
+    </div>
+  </main>
+</Base>
 
-      <div class="hero__panel">
-        <div class="hero__panel-inner">
-          <h1 class="hero__name">Andrew Zhang</h1>
-          <p class="hero__tag">CS and Math at UofT </p>
+<script>
+  interface Painting {
+    src: string;
+    alt?: string;
+  }
 
-          <div class="hero__nav" aria-label="Primary">
-            <a href="/blog/blablabla">blog</a>
-    <a href="/projects/stuff">projects</a>
-    <a href="/about">about</a>
-          </div>
+  function syncHeroLabel(painting: Painting | undefined) {
+    const imageEl = document.getElementById("hero-image");
+    if (!imageEl || !painting) return;
+    imageEl.setAttribute(
+      "aria-label",
+      painting.alt ?? "A painting by Andrew Zhang"
+    );
+  }
 
-          <button class="hero__switch" id="hero-switch" type="button" aria-label="Show a different painting">
-            switch theme
-          </button>
-        </div>
-      </div>
-    </main>
+  syncHeroLabel(window.__activePainting);
+  window.addEventListener("theme-applied", (event) =>
+    syncHeroLabel((event as CustomEvent<Painting>).detail)
+  );
 
-    <script>
-      function syncHeroImage(painting) {
-        const imageEl = document.getElementById("hero-image");
-        const imgEl = document.getElementById("hero-image-img");
-        if (!imageEl || !imgEl || !painting) return;
-        imageEl.style.backgroundImage = `url(${painting.src})`;
-        imgEl.src = painting.src;
-        imgEl.alt = painting.alt ?? "A painting by Andrew Zhang";
-      }
-
-      if (window.__activePainting) {
-        syncHeroImage(window.__activePainting);
-      }
-      window.addEventListener("theme-applied", (e) => syncHeroImage(e.detail));
-
-      document.getElementById("hero-switch")?.addEventListener("click", () => {
-        window.__cycleTheme?.();
-      });
-    </script>
-  </body>
-</html>
+  document.getElementById("hero-switch")?.addEventListener("click", () => {
+    window.__cycleTheme?.();
+  });
+</script>
 
 <style>
-  :global(html, body) {
+  :global(html),
+  :global(body) {
     margin: 0;
     height: 100%;
   }
@@ -75,43 +83,31 @@ import ThemeInit from "../components/theme-init.astro";
     position: absolute;
     inset: 0;
     background-color: var(--light-deep);
+
+    background-image: var(--hero-image);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
 
-  .sr-only {
+  .hero__panel {
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+    inset: 0;
+    z-index: 1;
+    width: min(400px, 35vw);
+    min-width: 280px;
+    background: var(--light);
+    display: flex;
+    align-items: center;
+
+    clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+    padding: clamp(1.5rem, 3.5vw, 3rem);
   }
 
-.hero__panel {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: min(400px, 35vw); /* Responsive width with a minimum base */
-  min-width: 280px;        /* Prevents content collapse on medium screens */
-  background: var(--light);
-  display: flex;
-  align-items: center;
-  /* Shift polygon points right to give content breathing room */
-  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
-  padding: clamp(1.5rem, 3.5vw, 3rem);
-  box-sizing: border-box;
-}
-
-.hero__panel-inner {
-  animation: rise 0.1s ease-out both;
-  width: 100%;
-  max-width: 17rem;
-}
+  .hero__panel-inner {
+    width: 100%;
+    max-width: 17rem;
+  }
 
   .hero__name {
     margin: 0;
@@ -154,63 +150,42 @@ import ThemeInit from "../components/theme-init.astro";
 
   .hero__switch {
     margin-top: 2rem;
+    padding: 0;
     background: none;
     color: var(--dark-soft);
     font-family: var(--font-sans);
-    border: 0px solid var(--dark-soft);
-    border-radius: 0.25rem;
+    border: 0;
     font-size: 1rem;
     letter-spacing: 0.05em;
     cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.2s ease;
   }
 
   .hero__switch:hover {
     color: var(--accent);
-    border-color: var(--accent);
   }
 
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(0px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  @media (max-width: 800px) {
+    .hero__panel {
+      width: 100%;
+      min-width: unset;
+      height: auto;
+      inset: auto 0 0 0;
 
-  @media (prefers-reduced-motion: reduce) {
+      clip-path: polygon(0 0, 100% 60px, 100% 100%, 0 100%);
+      align-items: flex-start;
+      padding: 2.5rem 1.75rem 2rem;
+    }
+
     .hero__panel-inner {
-      animation: none;
+      max-width: none;
+      width: 100%;
+    }
+
+    .hero__nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.25rem;
     }
   }
-
- @media (max-width: 800px) {
-  .hero__panel {
-    width: 100%;
-    min-width: unset;
-    height: auto;
-    inset: auto 0 0 0;
-    /* 
-      Top-left stays at 0px from top of panel.
-      Top-right drops by a fixed 60px (or calc(0px + 60px)).
-    */
-    clip-path: polygon(0 0, 100% 60px, 100% 100%, 0 100%);
-    align-items: flex-start;
-    padding: 2.5rem 1.75rem 2rem;
-  }
-
-  .hero__panel-inner {
-    max-width: none;
-    width: 100%;
-  }
-
-  .hero__nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-  }
-}
 </style>
